@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Score</string>
+    <string name="load_score">LOAD SCORE</string>
+</resources>

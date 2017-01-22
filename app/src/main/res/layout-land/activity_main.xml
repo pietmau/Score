@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.score.mauriziopietrantuono.score.view.MainActivity">
+
+    <com.score.mauriziopietrantuono.scoverview.ScoreView
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/scoreview"
+        app:outer_circle_color="@android:color/black"
+        app:score_text_size="@dimen/score_text_size"
+        app:upper_and_lower_text_size="@dimen/upper_and_lower_text_size"
+        app:text_spacing="@dimen/text_spacing"
+        app:outer_circle_stroke="@dimen/outer_circle_stroke"
+        app:inner_circle_stroke="@dimen/inner_circle_stroke"
+        app:circles_padding="@dimen/circles_padding"
+        app:start_color="@color/start_color"
+        app:middle_color="@color/middle_color"
+        app:end_color="@color/end_color"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.score.mauriziopietrantuono.scoverview.ScoreView>
+
+    <ProgressBar
+        android:layout_toRightOf="@+id/scoreview"
+        android:layout_centerVertical="true"
+        android:visibility="invisible"
+        android:id="@+id/progress"
+        android:indeterminate="true"
+        android:layout_width="@dimen/square_progress_size"
+        android:layout_height="@dimen/square_progress_size"/>
+
+    <Button
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/progress"
+        android:id="@+id/load"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:text="@string/load_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

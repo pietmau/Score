@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ScoverView</string>
+    <string name="default_upper_text">Your credit score is</string>
+    <string name="default_lower_text">out of 700</string>
+</resources>

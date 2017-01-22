@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="defaultOuterCircleStroke">2dp</dimen>
+    <dimen name="defaultScoreTextSize">64sp</dimen>
+    <dimen name="defaultInnercCircleStroke">16dp</dimen>
+    <dimen name="defaultCirclesPadding">16dp</dimen>
+    <dimen name="defaultUpperAndLowerTextSize">24sp</dimen>
+    <dimen name="defaultTextSpacing">16dp</dimen>
+</resources>

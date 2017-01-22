@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="defaultOuterCircleColor">#ff888888</color>
+    <color name="defaultStartColor">#ffff8800</color>
+    <color name="defaulMiddleColor">#ffffff00</color>
+    <color name="defaultEndColor">#ff00ff00</color>
+</resources>
