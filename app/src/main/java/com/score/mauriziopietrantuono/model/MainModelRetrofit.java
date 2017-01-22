@@ -29,7 +29,6 @@ public class MainModelRetrofit implements MainModel {
         return request;
     }
 
-
     @Override
     public Observable<Score> getCachedRequest() {
         return cache.get(REQUEST);

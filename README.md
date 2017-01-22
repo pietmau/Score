@@ -1,5 +1,5 @@
 # PLEASE NOTE!
-The application comes in two flavours: **prod** and **mock**.
+The application comes in two flavours: **prod** and **mock** (the mock flavour uses a mock Model dependency).
 
 1. To run the app please select the **prod** flavour.
 
@@ -31,6 +31,10 @@ Other features can be added using **Dependency Injection** (the application uses
 
 ###  The Custom View
 The score is represented using an original Custom View (`ScoreView`), the code of the Custom View is in the **scoreview module**
+
+###  The Custom View
+The score is represented using an original Custom View (`ScoreView`), the code of the Custom View is in the **scoreview module**
+
 
 ###  Saving and restoring the state
 The the network request is cached using the `Observer.cache()` operator (http://reactivex.io/RxJava/javadoc/rx/Observable.html#cache())
@@ -74,11 +78,10 @@ Because the Custom View has 14 custom attributes that need to be saved and resto
 The application keeps the `Observable` that contains the network request so that it survives configuration changes.
 
 It is preserved using `FragmentActivity.onRetainCustomNonConfigurationInstance()`;
-it is a very similar approach to the one used by FragmentActivity to preserve Loaders and Fragments
+it is a similar approach to the one used by FragmentActivity to preserve Loaders and Fragments
 (please see `FragmentActivity.onRetainNonConfigurationInstance()` source).
 
 Other methods are available to preserve the Presenters and other objects that need to outlive configuration changes
-
 (but it is not possible to save it the bundle like a view status, because cannot be serialized):
 
  - use a started and bound Service that will perform the request even the activity is being destroyed and recreated;

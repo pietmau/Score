@@ -8,6 +8,6 @@ public interface MainView {
     /** Hides/shows the view */
     void setProgressVisible(boolean isVisible);
 
-    /** Show error message */
+    /** Shows error message */
     void onError(String message);
 }

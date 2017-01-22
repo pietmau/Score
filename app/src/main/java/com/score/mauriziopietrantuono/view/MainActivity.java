@@ -41,12 +41,14 @@ public class MainActivity extends AppCompatActivity implements MainView {
         DaggerMainComponent.builder().mainModule(new MainModule(MainActivity.this)).build().inject(MainActivity.this);
     }
 
+    /** Unsubscribes to avoid memory leaks */
     @Override
     protected void onPause() {
         super.onPause();
         presenter.unSubscribe();
     }
 
+    /** Subscribes */
     @Override
     protected void onResume() {
         super.onResume();
