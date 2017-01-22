@@ -1,33 +1,20 @@
 package com.score.mauriziopietrantuono.score;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.view.View;
 
 
-import com.score.mauriziopietrantuono.dagger.MockModel;
+import com.score.mauriziopietrantuono.dagger.FakeModel;
 import com.score.mauriziopietrantuono.model.pojos.CreditReportInfo;
 import com.score.mauriziopietrantuono.model.pojos.Score;
-import com.score.mauriziopietrantuono.scoverview.ScoreView;
 import com.score.mauriziopietrantuono.view.MainActivity;
 
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.concurrent.TimeUnit;
-
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -38,22 +25,13 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 import static com.score.mauriziopietrantuono.score.Matchers.withScore;
 import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityInstrumentedTest {
     private static final String MESSAGE = "message";
-    private Score score;
+    //private Score score;
 
     @Rule public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
-
-    @Before
-    public void setUp() throws Exception {
-        score = new Score();
-        CreditReportInfo report = new CreditReportInfo();
-        report.setScore(100);
-        score.setCreditReportInfo(report);
-    }
 
     @Test
     public void when_starts_then_progressInvisible() {
@@ -73,7 +51,8 @@ public class MainActivityInstrumentedTest {
     @Test
     public void when_loads_then_scoreIsNotZero() {
         // GIVEN
-        MockModel.setResponse(Observable.just(score));
+        Score score = createScore();
+        FakeModel.setResponse(Observable.just(score));
         // WHEN
         onView(withId(R.id.load)).perform(click());
         // THEN
@@ -84,10 +63,18 @@ public class MainActivityInstrumentedTest {
     public void when_error_then_ErrorIsShown() {
         // GIVEN
         Observable<Score> error = Observable.error(new Exception(MESSAGE));
-        MockModel.setResponse(error);
+        FakeModel.setResponse(error);
         // WHEN
         onView(withId(R.id.load)).perform(click());
         // THEN
         onView(withText(MESSAGE)).check(matches(isDisplayed()));
+    }
+
+    private Score createScore() {
+        Score score = new Score();
+        CreditReportInfo report = new CreditReportInfo();
+        report.setScore(100);
+        score.setCreditReportInfo(report);
+        return score;
     }
 }

@@ -1,6 +1,6 @@
 package com.score.mauriziopietrantuono.score.model;
 
-import com.score.mauriziopietrantuono.model.Cache;
+import com.score.mauriziopietrantuono.model.RequestCache;
 import com.score.mauriziopietrantuono.model.MainModelRetrofit;
 import com.score.mauriziopietrantuono.model.api.Api;
 import com.score.mauriziopietrantuono.model.pojos.Score;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class MainModelTest {
     @Mock Api api;
-    @Mock Cache cache;
+    @Mock RequestCache cache;
     @Mock Scheduler observeOn;
     @Mock Scheduler subscribeOn;
     @InjectMocks MainModelRetrofit model;

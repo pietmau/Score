@@ -7,10 +7,13 @@ import java.util.Map;
 
 import rx.Observable;
 
-public class SimpleCache implements Cache {
+/**
+ * Used to cache the network request request.
+ */
+public class SimpleRequestCache implements RequestCache {
     private final Map<String, Observable<Score>> map;
 
-    public SimpleCache() {
+    public SimpleRequestCache() {
         map = new HashMap<>();
     }
 

@@ -50,7 +50,7 @@ public class ScoreView extends View {
     @State int middleColor;
 
     // RectF
-    private RectF innerCircleOval;
+    private RectF innerCircleOval = new RectF();
 
     public ScoreView(Context context) {
         this(context, null);
@@ -65,9 +65,10 @@ public class ScoreView extends View {
         TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ScoreView, defStyleAttr, 0);
         loadAttributes(attributes);
         attributes.recycle();
-        init();
+        initPaints();
     }
 
+    /** Loads the attributes one by one or applies the default */
     private void loadAttributes(TypedArray attributes) {
         Context context = getContext();
         Resources resources = context.getResources();
@@ -95,9 +96,8 @@ public class ScoreView extends View {
         textSpacing = attributes.getDimensionPixelSize(R.styleable.ScoreView_text_spacing, resources.getDimensionPixelSize(R.dimen.defaultTextSpacing));
     }
 
-    private void init() {
-        innerCircleOval = new RectF();
-
+    /** Initializes the Paint objects */
+    private void initPaints() {
         outerCirclePaint = new Paint();
         outerCirclePaint.setAntiAlias(true);
         outerCirclePaint.setStrokeWidth(getOuterCircleStroke());
@@ -120,6 +120,7 @@ public class ScoreView extends View {
         uperAndLowerTextPaint.setAntiAlias(true);
     }
 
+    /** Make sure the view is square */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -135,6 +136,7 @@ public class ScoreView extends View {
         setMeasuredDimension(size, size);
     }
 
+    /** Calculates the oval in which to draw the inner circle */
     private void calulateInnerCircleOval(int size) {
         int margin = getOuterCircleStroke() + getCirclesPadding() + getInnercCircleStroke() / 2;
         innerCircleOval.top = margin;
@@ -155,7 +157,7 @@ public class ScoreView extends View {
         if (TextUtils.isEmpty(getUpperText())) {
             return;
         }
-        float y = ((getMeasuredHeight()) - getScoreTextHeight()) / 2 - getTextSpacing();
+        float y = ((getMeasuredHeight()) - calculateScoreTextHeight()) / 2 - getTextSpacing();
         float x = (getMeasuredWidth() - uperAndLowerTextPaint.measureText(getUpperText())) / 2.0f;
         canvas.drawText(getUpperText(), x, y, uperAndLowerTextPaint);
     }
@@ -164,13 +166,13 @@ public class ScoreView extends View {
         if (TextUtils.isEmpty(getLowerText())) {
             return;
         }
-        float textHeight = getUpperAndLowerTextHeight();
-        float y = (getMeasuredHeight() + getScoreTextHeight()) / 2 + textHeight + getTextSpacing();
+        float textHeight = calculateUpperAndLowerTextHeight();
+        float y = (getMeasuredHeight() + calculateScoreTextHeight()) / 2 + textHeight + getTextSpacing();
         float x = (getMeasuredWidth() - uperAndLowerTextPaint.measureText(getLowerText())) / 2.0f;
         canvas.drawText(getLowerText(), x, y, uperAndLowerTextPaint);
     }
 
-    private float getUpperAndLowerTextHeight() {
+    private float calculateUpperAndLowerTextHeight() {
         return -(uperAndLowerTextPaint.descent() + uperAndLowerTextPaint.ascent());
     }
 
@@ -178,14 +180,14 @@ public class ScoreView extends View {
         if (getScoreText() == null) {
             return;
         }
-        scoreTextPaint.setColor(calculateColor(angle));
-        float textHeight = getScoreTextHeight();
+        scoreTextPaint.setColor(calculateColorOfArc(angle));
+        float textHeight = calculateScoreTextHeight();
         float x = (getMeasuredWidth() - scoreTextPaint.measureText(getScoreText())) / 2.0f;
         float y = (getMeasuredHeight() + textHeight) / 2.0f;
         canvas.drawText(getScoreText(), x, y, scoreTextPaint);
     }
 
-    private float getScoreTextHeight() {
+    private float calculateScoreTextHeight() {
         return -(scoreTextPaint.descent() + scoreTextPaint.ascent());
     }
 
@@ -205,18 +207,20 @@ public class ScoreView extends View {
         float startAngle = (float) -Math.toDegrees(Math.PI / 2);
         double endAngle = degrees - Math.toDegrees(Math.PI / 2);
 
+        /** Starting from -PI/2 draws several small arcs of different colors to create the final rainbow arc */
         for (float angle = startAngle; angle <= endAngle; angle++) {
-            canvas.drawArc(innerCircleOval, angle, 1, false, getInnerCirlePaint(angle));
+            canvas.drawArc(innerCircleOval, angle, 1, false, getArcPaint(angle));
             drawScoreText(canvas, angle);
         }
     }
 
-    private Paint getInnerCirlePaint(float angle) {
-        innerCirclePaint.setColor(calculateColor(angle));
+    private Paint getArcPaint(float angle) {
+        innerCirclePaint.setColor(calculateColorOfArc(angle));
         return innerCirclePaint;
     }
 
-    private int calculateColor(float angle) {
+    /** Calculates the color of the arc based on the percentage score/MAX_SCORE */
+    private int calculateColorOfArc(float angle) {
         angle += Math.toDegrees(Math.PI / 2);
         float fraction = (float) (angle / Math.toDegrees(Math.PI));
         if (angle <= Math.toDegrees(Math.PI)) {
@@ -226,6 +230,7 @@ public class ScoreView extends View {
         }
     }
 
+    /** Converts score/MAX_SCORE to degrees */
     private float calculateDegrees(int score) {
         return (float) ((score / MAX_SCORE) * Math.toDegrees(2 * Math.PI));
     }
@@ -233,7 +238,6 @@ public class ScoreView extends View {
     @Override
     protected Parcelable onSaveInstanceState() {
         return Icepick.saveInstanceState(this, super.onSaveInstanceState());
-
     }
 
     @Override

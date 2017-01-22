@@ -5,7 +5,8 @@ import com.score.mauriziopietrantuono.model.pojos.Score;
 
 import rx.Observable;
 
-public class MockModel implements MainModel {
+/** Replacement for the real Model for instrumented tests */
+public class FakeModel implements MainModel {
     private static Observable<Score> cachedResponse;
     private static Observable<Score> response;
 
@@ -15,15 +16,15 @@ public class MockModel implements MainModel {
     }
 
     @Override
-    public Observable<Score> getCachedResponse() {
+    public Observable<Score> getCachedRequest() {
         return cachedResponse;
     }
 
     public static void setCachedResponse(Observable<Score> cachedResponse) {
-        MockModel.cachedResponse = cachedResponse;
+        FakeModel.cachedResponse = cachedResponse;
     }
 
     public static void setResponse(Observable<Score> response) {
-        MockModel.response = response;
+        FakeModel.response = response;
     }
 }

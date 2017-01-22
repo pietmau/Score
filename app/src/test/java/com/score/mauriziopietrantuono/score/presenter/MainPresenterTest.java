@@ -12,14 +12,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.internal.exceptions.ExceptionIncludingMockitoWarnings;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import rx.Observable;
-import rx.Observer;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -89,7 +85,7 @@ public class MainPresenterTest {
 
     private void requestIsUnsuccesful() {
         Observable<Score> observable = Observable.error(new Exception(MESSAGE));
-        when(mainModel.getCachedResponse()).thenReturn(observable);
+        when(mainModel.getCachedRequest()).thenReturn(observable);
     }
 
     private void initPresenter() {
@@ -99,7 +95,7 @@ public class MainPresenterTest {
 
     private void requestIsSuccesful() {
         Score score = createScore();
-        when(mainModel.getCachedResponse()).thenReturn(Observable.just(score));
+        when(mainModel.getCachedRequest()).thenReturn(Observable.just(score));
     }
 
     private Score createScore() {

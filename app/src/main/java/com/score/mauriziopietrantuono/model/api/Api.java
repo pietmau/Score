@@ -8,6 +8,7 @@ import rx.Observable;
 
 public interface Api {
 
+    /** Retrieves the data from the endpoint */
     @GET("prod/mockcredit/values")
     Observable<Score> getScore();
 }

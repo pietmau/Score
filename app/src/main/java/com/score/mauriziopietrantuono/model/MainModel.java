@@ -6,7 +6,10 @@ import com.score.mauriziopietrantuono.model.pojos.Score;
 import rx.Observable;
 
 public interface MainModel {
+
+    /** Gets the score from the api */
     Observable<Score> getScore();
 
-    Observable<Score> getCachedResponse();
+    /** Gets the cached response, if any */
+    Observable<Score> getCachedRequest();
 }

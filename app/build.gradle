@@ -29,6 +29,7 @@ dependencies {
     // Local
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':scoreview')
+
     // Support
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:design:25.1.0'
@@ -38,17 +39,21 @@ dependencies {
     // Butterkinfe
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
     // Dagger
     annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
     compile 'com.google.dagger:dagger:2.8'
     provided 'javax.annotation:jsr250-api:1.0'
+
     // Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+
     // RxAndroid
     compile 'io.reactivex:rxandroid:1.2.1'
+
     // Tests
     testCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

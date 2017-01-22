@@ -2,10 +2,10 @@ package com.score.mauriziopietrantuono.dagger;
 
 import android.support.v7.app.AppCompatActivity;
 
-import com.score.mauriziopietrantuono.model.Cache;
 import com.score.mauriziopietrantuono.model.MainModel;
 import com.score.mauriziopietrantuono.model.MainModelRetrofit;
-import com.score.mauriziopietrantuono.model.SimpleCache;
+import com.score.mauriziopietrantuono.model.RequestCache;
+import com.score.mauriziopietrantuono.model.SimpleRequestCache;
 import com.score.mauriziopietrantuono.model.api.Api;
 import com.score.mauriziopietrantuono.model.api.ApiRetrofit;
 import com.score.mauriziopietrantuono.presenter.MainPresenter;
@@ -15,15 +15,16 @@ import dagger.Provides;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+/** Production Module */
 @Module
 public class MainModule {
     private static final String BASE_URL = "https://5lfoiyb0b3.execute-api.us-west-2.amazonaws.com/";
-    private Cache cache;
+    private RequestCache cache;
 
     public MainModule(AppCompatActivity activity) {
-        cache = (Cache) activity.getLastCustomNonConfigurationInstance();
+        cache = (RequestCache) activity.getLastCustomNonConfigurationInstance();
         if (cache == null) {
-            cache = new SimpleCache();
+            cache = new SimpleRequestCache();
         }
     }
 
@@ -43,7 +44,7 @@ public class MainModule {
     }
 
     @Provides
-    Cache provideCache(){
+    RequestCache provideCache(){
         return cache;
     }
 }

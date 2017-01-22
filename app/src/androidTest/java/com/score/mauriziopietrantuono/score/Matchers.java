@@ -9,8 +9,8 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
 class Matchers {
-
-        public static Matcher<View> withScore(final int expectedScore) {
+    /** Used to match the score of the ScoreView */
+    public static Matcher<View> withScore(final int expectedScore) {
             return new TypeSafeMatcher<View>() {
 
                 @Override
